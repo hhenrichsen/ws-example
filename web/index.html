@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script defer>
+    <script>
         (function() {
+            console.log("connecting...");
             const ws = new WebSocket('ws://localhost:8000/ws');
             ws.addEventListener('message', (event) => {
                 const el = document.getElementById('target');
                 const current = el.innerHTML;
+                console.log('got', event.data);
                 el.innerHTML = current ? current + " " + event.data : event.data;
+                ws.send('ack');
+            });
+            
+            ws.addEventListener('open', (event) => {
+                console.log('connected');
             });
         })();
     </script>
