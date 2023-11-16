@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer>
+        (function() {
+            const ws = new WebSocket('ws://localhost:8000/ws');
+            ws.addEventListener('message', (event) => {
+                const el = document.getElementById('target');
+                const current = el.innerHTML;
+                el.innerHTML = current ? current + " " + event.data : event.data;
+            });
+        })();
+    </script>
+</head>
+<body>
+    
+    <div id="target"></div>
+</body>
+</html>
